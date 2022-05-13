@@ -3,11 +3,12 @@
 namespace Star\Component\Todo\Evaluation;
 
 use Star\Component\Todo\ExecutionContext;
+use function trigger_error;
 
-final class ThrowExceptionOnFailure implements FailureStrategy
+final class AlwaysTriggerErrors implements FailureStrategy
 {
     public function handleValidationFailure(string $message, ExecutionContext $context): void
     {
-        throw new TaskHasExpired($message);
+        trigger_error($message, E_USER_DEPRECATED);
     }
 }

@@ -6,5 +6,5 @@ interface TodoConstraint
 {
     public function isValid(): bool;
 
-    public function generateFailureMessage(): string;
+    public function generateFailureMessage(ExecutionContext $context): string;
 }

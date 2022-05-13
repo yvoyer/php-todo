@@ -3,6 +3,7 @@
 namespace Star\Component\Todo\Tests\Constraints;
 
 use RuntimeException;
+use Star\Component\Todo\ExecutionContext;
 use Star\Component\Todo\TodoConstraint;
 
 final class AlwaysValidConstraint implements TodoConstraint
@@ -12,7 +13,7 @@ final class AlwaysValidConstraint implements TodoConstraint
         return true;
     }
 
-    public function generateFailureMessage(): string
+    public function generateFailureMessage(ExecutionContext $context): string
     {
         throw new RuntimeException(__METHOD__ . ' should never be invoked.');
     }

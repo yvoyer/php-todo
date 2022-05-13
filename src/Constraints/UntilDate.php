@@ -4,23 +4,24 @@ namespace Star\Component\Todo\Constraints;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Star\Component\Todo\ExecutionContext;
 use Star\Component\Todo\TodoConstraint;
 use function sprintf;
 
-final class GreaterEquals implements TodoConstraint
+final class UntilDate implements TodoConstraint
 {
     private DateTimeInterface $now;
     private DateTimeInterface $limit;
-    private string $message;
+    private string $task;
 
     public function __construct(
         DateTimeInterface $now,
         DateTimeInterface $limit,
-        string $message
+        string $task
     ) {
         $this->limit = new DateTimeImmutable($limit->format('Y-m-d'));
         $this->now = new DateTimeImmutable($now->format('Y-m-d'));
-        $this->message = $message;
+        $this->task = $task;
     }
 
     public function isValid(): bool
@@ -28,12 +29,13 @@ final class GreaterEquals implements TodoConstraint
         return $this->limit > $this->now;
     }
 
-    public function generateFailureMessage(): string
+    public function generateFailureMessage(ExecutionContext $context): string
     {
         return sprintf(
-            'Todo expired on "%s". %s',
+            'Task "%s" expires on "%s" %s.',
+            $this->task,
             $this->limit->format('Y-m-d'),
-            $this->message
+            $context->toString()
         );
     }
 }

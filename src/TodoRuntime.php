@@ -17,12 +17,14 @@ final class TodoRuntime
      * @param TodoConstraint $constraint
      * @param ExecutionContext $context
      * @return void
-     * @throws TodoException
      */
     public function evaluate(TodoConstraint $constraint, ExecutionContext $context): void
     {
         if (! $constraint->isValid()) {
-            $this->strategy->handleValidationFailure($constraint->generateFailureMessage(), $context);
+            $this->strategy->handleValidationFailure(
+                $constraint->generateFailureMessage($context),
+                $context
+            );
         }
     }
 }

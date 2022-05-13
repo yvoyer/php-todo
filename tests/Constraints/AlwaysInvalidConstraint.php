@@ -2,6 +2,7 @@
 
 namespace Star\Component\Todo\Tests\Constraints;
 
+use Star\Component\Todo\ExecutionContext;
 use Star\Component\Todo\TodoConstraint;
 
 final class AlwaysInvalidConstraint implements TodoConstraint
@@ -11,7 +12,7 @@ final class AlwaysInvalidConstraint implements TodoConstraint
         return false;
     }
 
-    public function generateFailureMessage(): string
+    public function generateFailureMessage(ExecutionContext $context): string
     {
         return 'Always invalid';
     }

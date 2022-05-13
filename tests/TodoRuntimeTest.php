@@ -20,7 +20,7 @@ final class TodoRuntimeTest extends TestCase
             ->with('Always invalid');
 
         $runtime = new TodoRuntime($strategy);
-        $runtime->evaluate(new AlwaysInvalidConstraint(), new ExecutionContext());
+        $runtime->evaluate(new AlwaysInvalidConstraint(), ExecutionContext::fromSelfContext());
     }
 
     public function test_it_should_do_nothing_when_constraint_is_valid(): void
@@ -31,6 +31,6 @@ final class TodoRuntimeTest extends TestCase
             ->method('handleValidationFailure');
 
         $runtime = new TodoRuntime($strategy);
-        $runtime->evaluate(new AlwaysValidConstraint(), new ExecutionContext());
+        $runtime->evaluate(new AlwaysValidConstraint(), ExecutionContext::fromSelfContext());
     }
 }
